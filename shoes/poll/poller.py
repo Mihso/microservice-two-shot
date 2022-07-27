@@ -11,6 +11,15 @@ django.setup()
 
 # Import models from hats_rest, here.
 # from shoes_rest.models import Something
+def get_bin():
+    response = requests.get()
+    content = json.loads(response.content)
+    for bin in content['bin']:
+        href = bin['href']
+        closet_name = ["closet_name"]
+        bin_number = ["bin_number"]
+        bin_size = ["bin_size"]
+
 
 def poll():
     while True:

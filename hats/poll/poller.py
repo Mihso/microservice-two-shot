@@ -12,6 +12,7 @@ django.setup()
 # Import models from hats_rest, here.
 # from hats_rest.models import Something
 
+
 def poll():
     while True:
         print('Hats poller polling for data')
