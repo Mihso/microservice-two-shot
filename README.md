@@ -2,16 +2,13 @@
 
 Team:
 
-* Matthew Oshimo - Hats
-* Gio Medina - Shoes
+* Gio Medina - Shoes 
+* Matthew Oshimo - Hats?
 
 ## Design
--Install Django App for Hats and shoes
--Models  
-    - hats
-    - shoes
--Insomnia requests (first goal)
-
+Install Django App for Shoes and Hats
+Create Models for Hats and Shoes.
+Test on Insomnia if links work.
 ## Shoes microservice
 Shoes Model
     - manufacturer, model name, color, url
