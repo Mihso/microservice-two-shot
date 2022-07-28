@@ -5,28 +5,37 @@ let selection = 0
 
 let currentConf = [[],[],[]]
 
+let currentLocations=[{},{}];
+
 function HatsColumn(props) {
   return (
     <div className="col">
       {props.list.map(data => {
-        const current = props.this
-        const hat = data;
+        const current = props.this;
+        let newLocation = {}
+        for(let loc of currentLocations)
+        {
+          if(loc.href === data.location.href)
+          {newLocation = loc;}
+        }
+
+
         return (
-          <div key={hat.styleName} className="card mb-3 shadow mb-5 bg-body rounded">
-            <img src={hat.pictureUrl} className="card-img-top" />
+          <div key={data.styleName} className="card mb-3 shadow mb-5 bg-body rounded">
+            <img src={data.pictureUrl} className="card-img-top" />
             <div className="card-body">
-              <h5 className="card-title">{hat.styleName}</h5>
+              <h5 className="card-title">{data.styleName}</h5>
               <h6 className="card-subtitle mb-2 text-muted">
-                {hat.color}
+                {data.color}
               </h6>
               <p className="card-text">
-                {hat.location.closet_name}
+                {newLocation.closet_name}
               </p>
             </div>
             <div className="card-footer">
                 <p>
-                Section: {hat.location.section_number}
-                - Shelf: {hat.location.shelf_number}
+                Section: {newLocation.section_number}
+                - Shelf: {newLocation.shelf_number}
                 </p>
                 <form onSubmit={current.handleSubmit} id="delete-hat-form">
                 <button type="submit" onClick={()=>{selection = data.id;}} className="btn btn-primary">Delete</button>
@@ -39,12 +48,11 @@ function HatsColumn(props) {
   );
 }
 
-
 async function createList(props){
   try {
     const act = props
     const url = 'http://localhost:8090/api/hats/';
-    const response = await fetch(url);
+    let response = await fetch(url);
     if (response.ok) {
 
       const data = await response.json();
@@ -54,7 +62,15 @@ async function createList(props){
         const detailUrl = `http://localhost:8090/api/hats/${hat.id}/`;
         requests.push(fetch(detailUrl));
       }
-
+      console.log(act)
+      const locations = "http://localhost:8100/api/locations/"
+      response = await fetch(locations);
+      console.log(response);
+      if(response.ok){
+        const data = await response.json();
+        currentLocations = data.locations;
+      }
+    
 
       const responses = await Promise.all(requests);
 
@@ -98,8 +114,8 @@ class HatList extends React.Component {
     event.preventDefault();
     const data = {...this.state};
 
-    const locationUrl = `http://localhost:8090/api/hats/${selection}`;
-    console.log(locationUrl)
+    const hatsUrl = `http://localhost:8090/api/hats/${selection}`;
+    console.log(hatsUrl)
     const fetchConfig = {
         method: "delete",
         body: JSON.stringify(data),
@@ -107,13 +123,11 @@ class HatList extends React.Component {
             'Content-Type': 'application/json',
         },
         };
-        const response = await fetch(locationUrl, fetchConfig);
+        const response = await fetch(hatsUrl, fetchConfig);
         if (response.ok) {
-            const newLocation = await response.json();
-            console.log(newLocation);
-            const cleared = {
-              set: "oops"
-              };
+            const newHat = await response.json();
+            console.log(newHat);
+
             createList(this);
         }
   }
@@ -138,7 +152,7 @@ class HatList extends React.Component {
           </div>
         </div>
         <div className="container">
-          <h2>Upcoming conferences</h2>
+          <h2>Hat selection and destruction.</h2>
           <div className="row gx-5 gy-3 row-cols-3">
             {this.state.conferenceColumns.map((conferenceList, index) => {
               return (

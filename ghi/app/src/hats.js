@@ -22,8 +22,8 @@ async handleSubmit(event){
     const data = {...this.state};
     delete data.locations;
 
-    const locationUrl = 'http://localhost:8090/api/hats/';
-    console.log(locationUrl)
+    const hatUrl = 'http://localhost:8090/api/hats/';
+    console.log(hatUrl)
     const fetchConfig = {
         method: "post",
         body: JSON.stringify(data),
@@ -31,10 +31,10 @@ async handleSubmit(event){
             'Content-Type': 'application/json',
         },
         };
-        const response = await fetch(locationUrl, fetchConfig);
+        const response = await fetch(hatUrl, fetchConfig);
         if (response.ok) {
-            const newLocation = await response.json();
-            console.log(newLocation);
+            const newHat = await response.json();
+            console.log(newHat);
             const cleared = {
                 styleName: '',
                 color: '',
@@ -111,7 +111,7 @@ if (this.state.hasSignedUp) {
                       {this.state.locations.map(location => {
                         return(
                           <option key={location.href} value={location.href}>
-                          {location.href}
+                          {location.closet_name}
                           </option>  
                         );
                       })}
