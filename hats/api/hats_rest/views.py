@@ -11,9 +11,6 @@ from .models import LocationVO, Hats
 class LocationVoEncoder(ModelEncoder):
     model = LocationVO
     properties = [
-        "closet_name",
-        "section_number",
-        "shelf_number",
         'href',
     ]
 
@@ -23,15 +20,18 @@ class HatsListEncoder(ModelEncoder):
     properties= [
         "styleName",
         "pictureUrl",
+        "id",
     ]
 
 class HatsDetailEncoder(ModelEncoder):
     model = Hats
     properties = [
         "styleName",
+        "fabric",
         "color",
         "pictureUrl",
         'location',
+        'id',
     ]
     encoders = {
         'location': LocationVoEncoder(),
@@ -49,9 +49,8 @@ def hatsList(request):
     else:
         content = json.loads(request.body)
         try:
-            location_href = content["location"]['href']
-            print(location_href)
-            location = LocationVO.objects.get(href=location_href)
+            locationContent = content["location"]
+            location = LocationVO.objects.get(href=locationContent)
             content["location"] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(
@@ -65,3 +64,15 @@ def hatsList(request):
             encoder=HatsDetailEncoder,
             safe=False,
         )
+@require_http_methods(["DELETE", 'GET'])
+def hats_delete(request, pk):
+    if request.method == "GET":
+        location = Hats.objects.get(id=pk)
+        return JsonResponse(
+            location,
+            encoder=HatsDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "DELETE":
+        count, _ = Hats.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})

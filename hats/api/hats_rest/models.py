@@ -4,13 +4,14 @@ from django.urls import reverse
 # Create your models here.
 
 class LocationVO(models.Model):
-    copy_closet_name = models.CharField(max_length=100)
-    copy_section_number = models.PositiveSmallIntegerField()
-    copy_shelf_number = models.PositiveSmallIntegerField()
-    copy_href = models.URLField()
+    closet_name = models.CharField(max_length=100)
+    section_number = models.PositiveSmallIntegerField()
+    shelf_number = models.PositiveSmallIntegerField()
+    href = models.URLField()
 
 
 class Hats(models.Model):
+    fabric = models.CharField(max_length=100, null=True)
     styleName = models.CharField(max_length=100)
     color = models.TextField()
     pictureUrl= models.URLField()
@@ -21,3 +22,6 @@ class Hats(models.Model):
     )
     def __str__(self):
         return self.styleName
+    
+    def get_api_url(self):
+        return reverse("hats_detail", kwargs={"pk": self.pk})
