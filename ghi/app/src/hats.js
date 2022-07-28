@@ -5,12 +5,14 @@ constructor(props){
     super(props);
     this.state = {
         styleName:'',
+        fabric:'',
         color:'',
         pictureUrl: '',
         locations: [],};
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
+    this.handleFabricChange = this.handleFabricChange.bind(this);
     this.handlePictureChange= this.handlePictureChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +25,6 @@ async handleSubmit(event){
     delete data.locations;
 
     const hatUrl = 'http://localhost:8090/api/hats/';
-    console.log(hatUrl)
     const fetchConfig = {
         method: "post",
         body: JSON.stringify(data),
@@ -34,9 +35,9 @@ async handleSubmit(event){
         const response = await fetch(hatUrl, fetchConfig);
         if (response.ok) {
             const newHat = await response.json();
-            console.log(newHat);
             const cleared = {
                 styleName: '',
+                fabric: '',
                 color: '',
                 pictureUrl:'',
                 location: '',
@@ -48,6 +49,11 @@ async handleSubmit(event){
 handleNameChange(event){
     const value = event.target.value;
     this.setState({styleName: value});
+}
+
+handleFabricChange(event){
+  const value = event.target.value;
+  this.setState({fabric: value});
 }
 
 handleColorChange(event){
@@ -125,6 +131,10 @@ if (this.state.hasSignedUp) {
                   <div className="form-floating mb-3">
                     <input onChange={this.handleNameChange} value={this.state.styleName} required placeholder="Style" type="text" name="styleName" id="styleName" className="form-control" />
                     <label htmlFor="styleName">Style</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input onChange={this.handleFabricChange} value={this.state.fabric} required placeholder="Fabric" type="text" name="fabric" id="fabric" className="form-control" />
+                    <label htmlFor="fabric">Fabric</label>
                   </div>
                   <div className="form-floating mb-3">
                     <input onChange={this.handleColorChange} value={this.state.color} placeholder="Color" required type="text" name = "color" id="color" className="form-control" />

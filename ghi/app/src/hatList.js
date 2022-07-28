@@ -26,19 +26,22 @@ function HatsColumn(props) {
             <div className="card-body">
               <h5 className="card-title">{data.styleName}</h5>
               <h6 className="card-subtitle mb-2 text-muted">
-                {data.color}
+                Color: {data.color}
               </h6>
-              <p className="card-text">
-                {newLocation.closet_name}
-              </p>
+              <h6 className="card-subtitle mb-2 text-muted">
+                Fabric: {data.fabric}
+              </h6>
             </div>
             <div className="card-footer">
+              <p className="card-text">
+                Inside wardrobe {newLocation.closet_name}
+              </p>
                 <p>
                 Section: {newLocation.section_number}
                 - Shelf: {newLocation.shelf_number}
                 </p>
                 <form onSubmit={current.handleSubmit} id="delete-hat-form">
-                <button type="submit" onClick={()=>{selection = data.id;}} className="btn btn-primary">Delete</button>
+                <button type="submit" onClick={()=>{selection = data.id;}} className="btn btn-primary">Destroy this hat</button>
                 </form> 
             </div>
           </div>
@@ -62,10 +65,8 @@ async function createList(props){
         const detailUrl = `http://localhost:8090/api/hats/${hat.id}/`;
         requests.push(fetch(detailUrl));
       }
-      console.log(act)
       const locations = "http://localhost:8100/api/locations/"
       response = await fetch(locations);
-      console.log(response);
       if(response.ok){
         const data = await response.json();
         currentLocations = data.locations;
@@ -75,13 +76,13 @@ async function createList(props){
       const responses = await Promise.all(requests);
 
 
-      const conferenceColumns = [[], [], []];
+      const hatColumns = [[], [], []];
 
       let i = 0;
       for (const conferenceResponse of responses) {
         if (conferenceResponse.ok) {
           const details = await conferenceResponse.json();
-          conferenceColumns[i].push(details);
+          hatColumns[i].push(details);
           i = i + 1;
           if (i > 2) {
             i = 0;
@@ -91,9 +92,9 @@ async function createList(props){
         }
       }
 
-      currentConf = conferenceColumns
+      currentConf = hatColumns
 
-      act.setState({conferenceColumns: conferenceColumns});
+      act.setState({hatColumns: hatColumns});
     }
   } catch (e) {
     console.error(e);
@@ -104,7 +105,7 @@ class HatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      conferenceColumns: [[], [], []],
+      hatColumns: [[], [], []],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -126,7 +127,6 @@ class HatList extends React.Component {
         const response = await fetch(hatsUrl, fetchConfig);
         if (response.ok) {
             const newHat = await response.json();
-            console.log(newHat);
 
             createList(this);
         }
@@ -154,9 +154,9 @@ class HatList extends React.Component {
         <div className="container">
           <h2>Hat selection and destruction.</h2>
           <div className="row gx-5 gy-3 row-cols-3">
-            {this.state.conferenceColumns.map((conferenceList, index) => {
+            {this.state.hatColumns.map((hatList, index) => {
               return (
-                <HatsColumn key={index} list={conferenceList} this={this}/>
+                <HatsColumn key={index} list={hatList} this={this}/>
               );
             })}
           </div>

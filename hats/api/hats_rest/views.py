@@ -27,6 +27,7 @@ class HatsDetailEncoder(ModelEncoder):
     model = Hats
     properties = [
         "styleName",
+        "fabric",
         "color",
         "pictureUrl",
         'location',
@@ -37,7 +38,7 @@ class HatsDetailEncoder(ModelEncoder):
     }
 
 
-@require_http_methods(["GET", "POST", 'DELETE'])
+@require_http_methods(["GET", "POST"])
 def hatsList(request):
     if request.method == "GET":
         hats = Hats.objects.all()
