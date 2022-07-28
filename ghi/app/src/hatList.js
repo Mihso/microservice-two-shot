@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-let selection = 0
-
-let currentConf = [[],[],[]]
+let selection = 0 // used to identify which hat waas selected to be deleted
 
 <<<<<<< HEAD
 =======
@@ -63,8 +61,7 @@ function HatsColumn(props) {
                 Inside wardrobe {newLocation.closet_name}
               </p>
                 <p>
-                Section: {newLocation.section_number}
-                - Shelf: {newLocation.shelf_number}
+                Section: {newLocation.section_number} - Shelf: {newLocation.shelf_number}
                 </p>
                 <form onSubmit={current.handleSubmit} id="delete-hat-form">
                 <button type="submit" onClick={()=>{selection = data.id;}} className="btn btn-primary">Destroy this hat</button>
@@ -101,13 +98,17 @@ async function createList(props){
         requests.push(fetch(detailUrl));
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
       const locations = "http://localhost:8100/api/locations/"
+=======
+      const locations = "http://localhost:8100/api/locations/" // get all locations from wardrobe
+>>>>>>> main
       response = await fetch(locations);
       if(response.ok){
         const data = await response.json();
-        currentLocations = data.locations;
+        currentLocations = data.locations; // create record of all locations in wardrobe
       }
     
 >>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
@@ -122,12 +123,18 @@ async function createList(props){
 >>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
 
       let i = 0;
+<<<<<<< HEAD
       for (const conferenceResponse of responses) {
         if (conferenceResponse.ok) {
           const details = await conferenceResponse.json();
 <<<<<<< HEAD
           conferenceColumns[i].push(details);
 =======
+=======
+      for (const hatResponse of responses) {
+        if (hatResponse.ok) {
+          const details = await hatResponse.json();
+>>>>>>> main
           hatColumns[i].push(details);
 >>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
           i = i + 1;
@@ -135,16 +142,19 @@ async function createList(props){
             i = 0;
           }
         } else {
-          console.error(conferenceResponse);
+          console.error(hatResponse);
         }
       }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       currentConf = conferenceColumns
 
       act.setState({conferenceColumns: conferenceColumns});
 =======
       currentConf = hatColumns
+=======
+>>>>>>> main
 
       act.setState({hatColumns: hatColumns});
 >>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
