@@ -11,9 +11,6 @@ from .models import LocationVO, Hats
 class LocationVoEncoder(ModelEncoder):
     model = LocationVO
     properties = [
-        "closet_name",
-        "section_number",
-        "shelf_number",
         'href',
     ]
 
@@ -33,6 +30,7 @@ class HatsDetailEncoder(ModelEncoder):
         "color",
         "pictureUrl",
         'location',
+        'id',
     ]
     encoders = {
         'location': LocationVoEncoder(),
@@ -51,7 +49,7 @@ def hatsList(request):
         content = json.loads(request.body)
         try:
             locationContent = content["location"]
-            location = LocationVO.objects.get(href=locationContent['href'])
+            location = LocationVO.objects.get(href=locationContent)
             content["location"] = location
         except LocationVO.DoesNotExist:
             return JsonResponse(

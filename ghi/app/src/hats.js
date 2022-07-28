@@ -95,7 +95,7 @@ if (this.state.hasSignedUp) {
         <div className="col">
           <div className="card shadow">
             <div className="card-body">
-            <form onSubmit={this.handleSubmit} id="create-attendee-form">
+            <form onSubmit={this.handleSubmit} id="create-hat-form">
                 <h1 className='card-title'>Have a Hat</h1>
                 <p className='mb-3'>
                     Hats for every need.
@@ -107,7 +107,7 @@ if (this.state.hasSignedUp) {
                 </div>
                 <div className="mb-3">
                     <select onChange={this.handleLocationChange} value={this.state.location} required id="location" name = "location" className="form-select">
-                      <option value="">Choose a Location.</option>
+                      <option value="">Choose a where to place your hat.</option>
                       {this.state.locations.map(location => {
                         return(
                           <option key={location.href} value={location.href}>
@@ -118,7 +118,7 @@ if (this.state.hasSignedUp) {
                     </select>
                   </div>
                   <p className='mb-3'>
-                      Now, tell us about yourself.
+                      Now, tell us more about your hat.
                   </p>
                   <div className = 'row'>
                     <div className = 'col'>
@@ -139,7 +139,7 @@ if (this.state.hasSignedUp) {
                   <button className="btn btn-primary">Create</button>
                 </form> 
               <div className="alert alert-success d-none mb-0" id="success-message">
-                Congratulations! You're all signed up!
+                Your hat is complete.
               </div>
             </div>
           </div>
