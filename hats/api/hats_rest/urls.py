@@ -1,7 +1,8 @@
-from django.urls import URLPattern, path
+from django.urls import path
 
-from .views import hatsList
+from .views import hatsList, hats_delete
 
-urlspatterns = [
-    path('hats/', hatsList, name="hats_list"),
+urlpatterns = [
+    path('hats/', hatsList, name="hats_List"),
+    path('hats/<int:pk>/', hats_delete, name="hats_delete"),
 ]
