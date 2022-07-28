@@ -5,20 +5,14 @@ constructor(props){
     super(props);
     this.state = {
         styleName:'',
-<<<<<<< HEAD
-=======
         fabric:'',
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
         color:'',
         pictureUrl: '',
         locations: [],};
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
-<<<<<<< HEAD
-=======
     this.handleFabricChange = this.handleFabricChange.bind(this);
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
     this.handlePictureChange= this.handlePictureChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,12 +24,7 @@ async handleSubmit(event){
     const data = {...this.state};
     delete data.locations;
 
-<<<<<<< HEAD
-    const locationUrl = 'http://localhost:8090/api/hats/';
-    console.log(locationUrl)
-=======
     const hatUrl = 'http://localhost:8090/api/hats/';
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
     const fetchConfig = {
         method: "post",
         body: JSON.stringify(data),
@@ -43,21 +32,12 @@ async handleSubmit(event){
             'Content-Type': 'application/json',
         },
         };
-<<<<<<< HEAD
-        const response = await fetch(locationUrl, fetchConfig);
-        if (response.ok) {
-            const newLocation = await response.json();
-            console.log(newLocation);
-            const cleared = {
-                styleName: '',
-=======
         const response = await fetch(hatUrl, fetchConfig);
         if (response.ok) {
             const newHat = await response.json();
             const cleared = {
                 styleName: '',
                 fabric: '',
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
                 color: '',
                 pictureUrl:'',
                 location: '',
@@ -71,14 +51,11 @@ handleNameChange(event){
     this.setState({styleName: value});
 }
 
-<<<<<<< HEAD
-=======
 handleFabricChange(event){
   const value = event.target.value;
   this.setState({fabric: value});
 }
 
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
 handleColorChange(event){
     const value = event.target.value;
     this.setState({color: value});
@@ -140,11 +117,7 @@ if (this.state.hasSignedUp) {
                       {this.state.locations.map(location => {
                         return(
                           <option key={location.href} value={location.href}>
-<<<<<<< HEAD
-                          {location.href}
-=======
                           {location.closet_name}
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
                           </option>  
                         );
                       })}
@@ -160,13 +133,10 @@ if (this.state.hasSignedUp) {
                     <label htmlFor="styleName">Style</label>
                   </div>
                   <div className="form-floating mb-3">
-<<<<<<< HEAD
-=======
                     <input onChange={this.handleFabricChange} value={this.state.fabric} required placeholder="Fabric" type="text" name="fabric" id="fabric" className="form-control" />
                     <label htmlFor="fabric">Fabric</label>
                   </div>
                   <div className="form-floating mb-3">
->>>>>>> f7d3fd543e31b5fbb276e124b82aef8b51fdc63f
                     <input onChange={this.handleColorChange} value={this.state.color} placeholder="Color" required type="text" name = "color" id="color" className="form-control" />
                     <label htmlFor="color">Color</label>
                   </div>
