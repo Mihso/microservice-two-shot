@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-let selection = 0
-
-let currentConf = [[],[],[]]
+let selection = 0 // used to identify which hat waas selected to be deleted
 
 let currentLocations=[{},{}];
 
@@ -37,8 +35,7 @@ function HatsColumn(props) {
                 Inside wardrobe {newLocation.closet_name}
               </p>
                 <p>
-                Section: {newLocation.section_number}
-                - Shelf: {newLocation.shelf_number}
+                Section: {newLocation.section_number} - Shelf: {newLocation.shelf_number}
                 </p>
                 <form onSubmit={current.handleSubmit} id="delete-hat-form">
                 <button type="submit" onClick={()=>{selection = data.id;}} className="btn btn-primary">Destroy this hat</button>
@@ -65,11 +62,11 @@ async function createList(props){
         const detailUrl = `http://localhost:8090/api/hats/${hat.id}/`;
         requests.push(fetch(detailUrl));
       }
-      const locations = "http://localhost:8100/api/locations/"
+      const locations = "http://localhost:8100/api/locations/" // get all locations from wardrobe
       response = await fetch(locations);
       if(response.ok){
         const data = await response.json();
-        currentLocations = data.locations;
+        currentLocations = data.locations; // create record of all locations in wardrobe
       }
     
 
@@ -79,20 +76,19 @@ async function createList(props){
       const hatColumns = [[], [], []];
 
       let i = 0;
-      for (const conferenceResponse of responses) {
-        if (conferenceResponse.ok) {
-          const details = await conferenceResponse.json();
+      for (const hatResponse of responses) {
+        if (hatResponse.ok) {
+          const details = await hatResponse.json();
           hatColumns[i].push(details);
           i = i + 1;
           if (i > 2) {
             i = 0;
           }
         } else {
-          console.error(conferenceResponse);
+          console.error(hatResponse);
         }
       }
 
-      currentConf = hatColumns
 
       act.setState({hatColumns: hatColumns});
     }
