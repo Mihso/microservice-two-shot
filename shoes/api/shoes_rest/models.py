@@ -5,10 +5,10 @@ from django.urls import reverse
 
 
 class BinVO(models.Model):
-    copy_closet_name = models.CharField(max_length=100)
-    copy_bin_number = models.PositiveSmallIntegerField()
-    copy_bin_size = models.PositiveSmallIntegerField()
-    copy_href = models.URLField()
+    closet_name = models.CharField(max_length=100)
+    bin_number = models.PositiveSmallIntegerField()
+    bin_size = models.PositiveSmallIntegerField()
+    href = models.URLField()
 
 
 
@@ -24,5 +24,7 @@ class Shoes(models.Model):
     )
 
     def __str__(self):
-        return self.styleName
+        return self.modelName
     
+    def get_api_url(self):
+        return reverse ("shoes_detail", kwargs={"pk": self.pk})   

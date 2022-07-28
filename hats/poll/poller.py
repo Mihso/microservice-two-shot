@@ -5,7 +5,7 @@ import time
 import json
 import requests
 
-sys.path.append("")
+sys.path.append(os.path.abspath('.../api'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "hats_project.settings")
 django.setup()
 

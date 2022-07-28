@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Shoes
-from .models import BinVO
+
+
+from .models import Shoes, BinVO
 from common.json import ModelEncoder
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
@@ -35,7 +36,7 @@ class ShoeListEncoder(ModelEncoder):
     
 
 
-@require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST", "DELETE"])
 def list_shoes(request):
     if request.method == "GET":
         shoes = Shoes.objects.all()
@@ -46,8 +47,7 @@ def list_shoes(request):
     else:
         content = json.load(request.body)
         try:
-            bin_href = content["bin"]["href"]
-            print(bin_href)
+            bin_href = content["bin"]
             bin = BinVO.objects.get(href=bin_href)
             content["bin"] = bin
         except BinVO.DoesNotExist:
@@ -61,3 +61,16 @@ def list_shoes(request):
             encoder=ShoeListEncoder,
             safe=False,
         )
+
+@require_http_methods(["DELETE", "GET"])
+def shoes_delete(request, pk):
+    if request.method == "GET":
+        bin = Shoes.objects.get(id=pk)
+        return JsonResponse(
+            bin,
+            encoder=ShoeDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "DELETE":
+        count, _ =  Shoes.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0 })
