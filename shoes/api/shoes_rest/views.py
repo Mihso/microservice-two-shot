@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from models import Shoes
-from shoes.api.shoes_rest.models import BinVO
-from wardrobe.api.common.json import ModelEncoder
+from .models import Shoes
+from .models import BinVO
+from common.json import ModelEncoder
 from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
 import json
@@ -61,6 +61,3 @@ def list_shoes(request):
             encoder=ShoeListEncoder,
             safe=False,
         )
-
-
-     

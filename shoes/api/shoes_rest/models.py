@@ -17,7 +17,7 @@ class Shoes(models.Model):
     modelName = models.CharField(max_length=50)
     color = models.TextField(max_length=20)
     picture_url = models.URLField(null=True)
-    bin_ = models.ForeignKey(
+    bin = models.ForeignKey(
         BinVO,
         related_name="bin",
         on_delete=models.CASCADE,
