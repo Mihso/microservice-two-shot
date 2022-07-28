@@ -11,6 +11,7 @@ class LocationVO(models.Model):
 
 
 class Hats(models.Model):
+    fabric = models.CharField(max_length=100, null=True)
     styleName = models.CharField(max_length=100)
     color = models.TextField()
     pictureUrl= models.URLField()

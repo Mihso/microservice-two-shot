@@ -27,6 +27,7 @@ class HatsDetailEncoder(ModelEncoder):
     model = Hats
     properties = [
         "styleName",
+        "fabric",
         "color",
         "pictureUrl",
         'location',
