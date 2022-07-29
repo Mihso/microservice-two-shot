@@ -8,7 +8,7 @@ class ShoeForm extends React.Component {
             modelName: '',
             color: '',
             picture_url: '',
-            bin: [],}
+            bins: [],}
         
 
         this.handleManufacturerChange = this.handleManufacturerChange.bind(this)
@@ -22,7 +22,7 @@ class ShoeForm extends React.Component {
 async handleSubmit(event) {
     event.preventDefault()
     const data = {...this.state}
-    delete data.locations
+    delete data.bins
     
     const binUrl = 'http://localhost:8080/api/shoes/'
     console.log(binUrl)
@@ -74,13 +74,13 @@ async componentDidMount(){
     const response = await fetch(url)
     if (response.ok){
         const data = await response.json()
-            this.setState({bin: data.bin})
+            this.setState({bins: data.bins})
     }
 }
     render() {
     let spinnerClasses = 'd-flex justify-content-center mb-3'
 let dropdownClasses = 'form-select d-none'
-if (this.state.bin.length > 0) {
+if (this.state.bins.length > 0) {
     spinnerClasses = 'd-flex justify-content-center mb-3 d-none'
     dropdownClasses = 'd-none'
 }
@@ -107,9 +107,9 @@ if (this.state.hasSignedUp) {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <select onChange={this.handleBinChange} value={this.state.bin} required id="bin" name="bin" className="form-select">
+                                <select onChange={this.handleBinChange} value={this.state.bins} required id="bin" name="bin" className="form-select">
                                     <option value="">Choose where you want your shoes to go</option>
-                                    {this.state.bin.map(bin => {
+                                    {this.state.bins.map(bin => {
                                         return(
                                             <option key={bin.href} value={bin.href}>
                                             {bin.href}
