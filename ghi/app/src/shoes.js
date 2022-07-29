@@ -107,7 +107,7 @@ if (this.state.hasSignedUp) {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <select onChange={this.handleBinChange} value={this.state.bins} required id="bin" name="bin" className="form-select">
+                                <select onChange={this.handleBinChange} value={this.state.bin} required id="bin" name="bin" className="form-select">
                                     <option value="">Choose where you want your shoes to go</option>
                                     {this.state.bins.map(bin => {
                                         return(
