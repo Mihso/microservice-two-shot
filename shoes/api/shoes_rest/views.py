@@ -30,7 +30,7 @@ class ShoeDetailEncoder(ModelEncoder):
 
 class ShoeListEncoder(ModelEncoder):
     model = Shoes
-    properties = ["name", "picture_url", "id"]
+    properties = ["modelName", "picture_url", "id"]
     
 
 

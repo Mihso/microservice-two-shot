@@ -17,17 +17,18 @@ function ShoesColumn(props) {
                         <div className ="card-body">
                             <h5 className="card-title">{shoe.manufacturer}</h5>
                             <h6 className="card-subtitle">{shoe.modelName}</h6>
-                            <h7 className="card-subtitle mb-2 text-muted">
+                            <h6 className="card-subtitle mb-2 text-muted">
                                 {shoe.color}
-                            </h7>
+                            </h6>
                             <p className="card-text">
-                                {shoe.bin.closet_name}
+                                {/*shoe.bin.closet_name*/}
                             </p>
                         </div>
                         <div className="card-footer">
                             <p>
-                                Section: {shoe.bin.bin_number}
+                              {/*  Section: {shoe.bin.bin_number}
                                 - Bin: {shoe.bin.bin_number}
+                */}
                             </p>
                             <form onSubmit={current.handleSubmit} id="delete-shoe-form">
                             <button type="submit" onClick={()=> {selection = data.id}} className="btn btn-primary">Delete</button>
