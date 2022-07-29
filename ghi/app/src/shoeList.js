@@ -44,11 +44,11 @@ function ShoesColumn(props) {
 async function createList(props) {
     try{
         const act = props
-        const url = 'http://localhost:8080/api/shoes/'
-        const response = await fetch(url)
+        const url = 'http://localhost:8080/api/shoes/';
+        const response = await fetch(url);
         if (response.ok) {
-            const data = await response.json()
-            const requests = []
+            const data = await response.json();
+            const requests = [];
             for (let shoe of data.shoes) {
                 const detailUrl = `http://localhost:8080/api/shoes/${shoe.id}/`
                 requests.push(fetch(detailUrl))

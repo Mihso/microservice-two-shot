@@ -11,9 +11,6 @@ import json
 class BinVoEncoder(ModelEncoder):
     model = BinVO
     properties = [
-        "closet_name",
-        "bin_number",
-        "bin_size",
         "href",
     ]
 
@@ -27,7 +24,7 @@ class ShoeDetailEncoder(ModelEncoder):
         "id",
     ]
     encoders = {
-        'bin': BinVoEncoder(),
+        "bin": BinVoEncoder(),
     }
 
 
@@ -46,7 +43,7 @@ def list_shoes(request):
             encoder = ShoeListEncoder,
         )
     else:
-        content = json.load(request.body)
+        content = json.loads(request.body)
         try:
             bin_href = content["bin"]
             bin = BinVO.objects.get(href=bin_href)

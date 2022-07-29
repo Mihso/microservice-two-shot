@@ -113,6 +113,7 @@ if (this.state.hasSignedUp) {
                                         return(
                                             <option key={bin.href} value={bin.href}>
                                             {bin.href}
+                                            {console.log(bin.href)}
                                             </option>
                                         )
                                     })}

@@ -5,24 +5,24 @@ import time
 import json
 import requests
 
-sys.path.append(os.path.abspath('.../api'))
+sys.path.append(os.path.abspath('../api'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "shoes_project.settings")
 django.setup()
 
 # Import models from hats_rest, here.
 # from shoes_rest.models import Something
-from api.shoes_rest.models import BinVO
+from shoes_rest.models import BinVO
 
 def get_bin():
     response = requests.get("http://wardrobe-api:8000/api/bins/")
     content = json.loads(response.content)
-    for bin in content['bin']:
+    for bin in content['bins']:
         print(bin)
         BinVO.objects.update_or_create(
             href = bin['href'],
-            closet_name = ["closet_name"],
-            bin_number = ["bin_number"],
-            bin_size = ["bin_size"],
+            closet_name = bin["closet_name"],
+            bin_number = bin["bin_number"],
+            bin_size = bin["bin_size"],
         )
 
 def poll():
@@ -30,7 +30,7 @@ def poll():
         print('Shoes poller polling for data')
         try:
             # Write your polling logic, here
-            get_bin
+            get_bin()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
