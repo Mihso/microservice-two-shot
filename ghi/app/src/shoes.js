@@ -33,7 +33,7 @@ async handleSubmit(event) {
             'Content-Type': 'application/json'
         }
         }
-        const response = await(binUrl, fetchConfig)
+        const response = await fetch(binUrl, fetchConfig)
         if (response.ok) {
             const newBin = await response.json()
             console.log(newBin)
